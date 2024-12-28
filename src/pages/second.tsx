@@ -30,16 +30,16 @@ import { Label } from '@radix-ui/react-label'
 
 const formSchema = z.object({
   plan: z.enum(['arcade', 'advanced', 'pro']),
-  isMonthly: z.boolean().default((true))
+  isMonthly: z.boolean().default(true)
 })
 
 const Second = () => {
-  const [m, setM] = useState(true)
+  const [m, setM] = useState(false)
   const plans = [{
     // icon: '../assets/images/icon-arcade.svg',
     icon: arcade,
     title: 'Arcade',
-    cost: m ? '$9/mo' : '$90/yr',
+    cost: !m ? '$9/mo' : '$90/yr',
     promo: !m ? '2 months free' : '',
     value: 'arcade'
   },
@@ -47,7 +47,7 @@ const Second = () => {
     // icon: '../assets/images/icon-advanced.svg',
     icon: advanced,
     title: 'Advanced',
-    cost: m ? '$12/mo' : '$120/yr',
+    cost: !m ? '$12/mo' : '$120/yr',
     promo: !m ? '2 months free' : '',
     value: 'advanced'
   },
@@ -55,14 +55,17 @@ const Second = () => {
     // icon: '../assets/images/icon-pro.svg',
     icon: pro,
     title: 'Pro',
-    cost: m ? '$15/mo' : '$150/yr',
+    cost: !m ? '$15/mo' : '$150/yr',
     promo: !m ? '2 months free' : '',
     value: 'pro'
   }
   ]
   const [chosed, setChosed] = useState<string | null>(null)
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+        isMonthly: true
+    },
   })
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data)
@@ -84,16 +87,20 @@ const Second = () => {
     }, 400)
   }
   const cdMonthly = useRef(false)
-  const handleMonthly = (value: any) =>{
+  const handleMonthly = (value: boolean) =>{
     if(cdMonthly.current) return
-    setM(value)
+    setM(!value)
     cdMonthly.current = true
     setTimeout(()=>{
       cdMonthly.current = false
     }, 400)
   }
   useEffect(()=>{
-    console.log(m)
+    // if(form.getValues('isMonthly')===undefined){ 
+    //   form.setValue("isMonthly", false)
+    // }
+    // console.log(form.getValues('isMonthly'))
+    // console.log(m)
   }, [m])
   return (
     <Form {...form}>
@@ -105,7 +112,7 @@ const Second = () => {
             <FormItem>
               <FormControl>
                 <RadioGroup
-                  className='flex'
+                  className='flex gap-5'
                   onValueChange={field.onChange}
                 >
                   {plans.map((plan, index)=>(
@@ -139,16 +146,20 @@ const Second = () => {
           control={form.control}
           name='isMonthly'
           render={({field})=> (
-            <FormItem>
-              <FormLabel>uwu</FormLabel>
+            <FormItem className='flex justify-center align-center'>
+              <div>
+              <span className='text-md'>UwU</span>
               <FormControl>
                 <Switch
+                  id='switch'
                   onClick={()=>handleMonthly(field.value)}
-                  className='data-[state=unchecked]:bg-gray-700'
+                  className='data-[state=unchecked]:bg-gray-700 mx-5'
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
               </FormControl>
+              <span className='text-md'>OwO</span>
+              </div>
             </FormItem>
           )}
         >
