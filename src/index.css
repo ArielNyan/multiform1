@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 /* ... */
+/* body{ */
+/*   background-color: black; */
+/* } */
+
+#sidebar{
+  background-image: url('/src/assets/images/bg-sidebar-desktop.svg');
+}
 
 #root{
   height: 50dvh;
