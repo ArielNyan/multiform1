@@ -10,7 +10,7 @@ import { useState, useEffect } from "react"
 function App() {
   const [form1, setForm1] = useState(null)
   const [plan, setPlan] = useState(2) 
-  const handleFormSubmit = (data, plan) => {
+  const handleFormSubmit = (data: any, plan: number) => {
     setForm1(data)
     setPlan(plan)
   }
