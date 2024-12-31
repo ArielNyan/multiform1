@@ -3,21 +3,23 @@ import React from 'react'
 type props = {
   name: string,
   id: string,
-  onChange: any
+  onChange: any,
+  type: string
 }
 
-const FormInput = (props: props) => {
-  const {name, id, onChange} = props
+const FormInput = ({className, type, ...props}) => {
+  // const {name, id, onChange, type} = props
 
   return (
     <div>
-      <label htmlFor={name}>{name}
-      </label>
       <input
-        type='text'
-        id={id}
-        onChange={(e)=>onChange(e)}
-        name={name}
+        className={className}
+        type={type}
+        {...props}
+        // type={type}
+        // id={id}
+        // onChange={(e)=>onChange(e)}
+        // name={name}
       />
     </div>
   )
