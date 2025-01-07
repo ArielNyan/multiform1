@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FormInput from './FormInput'
 import '../App.css'
-const Form = ({onSubmit}) => {
+const Form = ({onSubmit}: any) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,11 +36,9 @@ const Form = ({onSubmit}) => {
         </div>
         <div>
         <div className='mt-5 w-full flex items-end h-min'>
-          <div className='shad rounded-2xl ml-auto'>
           <button type='submit' className='transition ease-in-out delay-100 ml-auto p-3 bg-blue-800 rounded-2xl hover:bg-purple-800 shad'>
             <span className='text-white font-semibold'>Next Step</span>
           </button>
-        </div>
         </div>
         </div>
       </form>
