@@ -58,6 +58,8 @@ const Form2: React.FC<Form2Props> = ({ options, onSubmit, onReset }) => {
             </div>
           ))}
         </div>
+        
+        {/*ADICIONAR SLIDER SOBRE SE É MENSAL OU ANUAL*/}
 
         <div className="flex justify-between content-between w-full">
           <button
