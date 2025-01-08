@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 
 type CardOption = {
+  img: string,
   id: string;
   title: string;
-  description: string;
+  price: string;
 };
 
 type Form2Props = {
   options: CardOption[];
   onSubmit: (selectedId: string) => void;
+  onReset: () => void
 };
 
-const Form2: React.FC<Form2Props> = ({ options, onSubmit }) => {
+const Form2: React.FC<Form2Props> = ({ options, onSubmit, onReset }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const handleCardClick = (id: string) => {
@@ -26,6 +28,12 @@ const Form2: React.FC<Form2Props> = ({ options, onSubmit }) => {
       alert("Por favor, selecione uma opção.");
     }
   };
+  
+  const handleReset = (e: React.FormEvent) => {
+    e.preventDefault()
+    setSelectedId(null)
+    onReset();
+  }
 
   return (
     <div className="flex flex-col m-10 items-center justify-between ">
@@ -35,20 +43,22 @@ const Form2: React.FC<Form2Props> = ({ options, onSubmit }) => {
 
 
 
-      <form onSubmit={handleSubmit} className="flex flex-col items-center justify-between h-full">
+      <form onReset={handleReset} onSubmit={handleSubmit} className="flex flex-col items-center justify-between h-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
           {options.map((option) => (
             <div
               key={option.id}
-              className={`p-4 border rounded-lg shadow cursor-pointer transition ${selectedId === option.id ? "border-blue-500 bg-blue-100" : "border-gray-300"
+              className={`p-6 border rounded-lg shadow cursor-pointer transition ${selectedId === option.id ? "border-blue-500 bg-blue-100" : "border-gray-300"
                 }`}
               onClick={() => handleCardClick(option.id)}
             >
+              <img src={option.img} />
               <h2 className="text-lg font-bold">{option.title}</h2>
-              <p className="text-sm text-gray-600">{option.description}</p>
+              <p className="text-sm text-gray-600">{option.price}</p>
             </div>
           ))}
         </div>
+
         <div className="flex justify-between content-between w-full">
           <button
             type="reset"
