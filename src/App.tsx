@@ -23,6 +23,8 @@ function App() {
   const [form1Data, setForm1Data] = useState<form1type | null>(null)
   const [form2Data, setForm2Data] = useState<string | null>(null)
   const [active, setActive] = useState(3)
+  const [selected, setSelected] = useState<null|Array<false|true>>(null)
+
   const handleFormSubmit = (formData: any) => {
     if (active === 1) {
       setForm1Data(formData)
@@ -42,7 +44,7 @@ function App() {
   };
   const handleReset = () => {
     if (active === 2) setForm2Data(null)
-    if (active === 3) return
+    if (active === 3) setSelected(null)
     setActive(curr => curr - 1)
   }
   useEffect(() => {
@@ -52,6 +54,9 @@ function App() {
     console.log(form2Data)
   }, [form2Data])
 
+  const handleSubmit3 = (selected: Array<false|true>) => {
+    setSelected(selected)
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-700">
@@ -62,7 +67,7 @@ function App() {
           : active === 2 ?
             <Form2 options={cardOptions} onSubmit={handleForm2Submit} onReset={handleReset} />
             : active === 3 ?
-              <Form3 />
+              <Form3 handleReset={handleReset} handleSubmit={handleSubmit3}/>
               : <></>
         }
       </Card>
