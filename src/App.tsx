@@ -24,7 +24,7 @@ function App() {
   const [form1Data, setForm1Data] = useState<form1type | null>(null)
   const [form2Data, setForm2Data] = useState<string | null>(null)
   const [active, setActive] = useState(4)
-  const [selected, setSelected] = useState<null|Array<false|true>>(null)
+  const [selected, setSelected] = useState<null|boolean[]>(null)
 
   const handleFormSubmit = (formData: any) => {
     if (active === 1) {
@@ -48,17 +48,34 @@ function App() {
     if (active === 3) setSelected(null)
     setActive(curr => curr - 1)
   }
-  useEffect(() => {
-    console.log(form1Data)
-  }, [form1Data])
-  useEffect(() => {
-    console.log(form2Data)
-  }, [form2Data])
+  // useEffect(() => {
+  //   console.log(form1Data)
+  // }, [form1Data])
+  // useEffect(() => {
+  //   console.log(form2Data)
+  // }, [form2Data])
 
   const handleSubmit3 = (selected: Array<false|true>) => {
     setSelected(selected)
     setActive(4)
   }
+
+  /*test data*/
+
+  const data1 = {
+    name: 'Ariel',
+    email: 'ariel.nyyan@gmail.com',
+    phone: '61981111111'
+  };
+  const data2 = '1';
+  const data3 = [false, true, true];
+
+
+    // setForm1Data(data1)
+    // setForm2Data(data2)
+    // setSelected(data3)
+
+  /*---------*/
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-700">
@@ -70,7 +87,7 @@ function App() {
             <Form2 options={cardOptions} onSubmit={handleForm2Submit} onReset={handleReset} />
             : active === 3 ?
               <Form3 handleReset={handleReset} handleSubmit={handleSubmit3}/>
-              : <Finishing form1={form1Data} form2={form2Data} form3={selected}/>
+              : <Finishing form1={data1} form2={data2} form3={data3}/>
         }
       </Card>
     </div>
