@@ -1,6 +1,7 @@
 import Card from "./comp/Card"
 import Sidebar from "./comp/Sidebar"
 import Form from "./comp/Form"
+import Finishing from "./comp/Finishing"
 import { useEffect, useState } from "react"
 import Form2 from "./comp/form2"
 import Form3 from "./comp/Form3"
@@ -22,7 +23,7 @@ type form1type = {
 function App() {
   const [form1Data, setForm1Data] = useState<form1type | null>(null)
   const [form2Data, setForm2Data] = useState<string | null>(null)
-  const [active, setActive] = useState(3)
+  const [active, setActive] = useState(4)
   const [selected, setSelected] = useState<null|Array<false|true>>(null)
 
   const handleFormSubmit = (formData: any) => {
@@ -56,6 +57,7 @@ function App() {
 
   const handleSubmit3 = (selected: Array<false|true>) => {
     setSelected(selected)
+    setActive(4)
   }
 
   return (
@@ -68,7 +70,7 @@ function App() {
             <Form2 options={cardOptions} onSubmit={handleForm2Submit} onReset={handleReset} />
             : active === 3 ?
               <Form3 handleReset={handleReset} handleSubmit={handleSubmit3}/>
-              : <></>
+              : <Finishing form1={form1Data} form2={form2Data} form3={selected}/>
         }
       </Card>
     </div>
